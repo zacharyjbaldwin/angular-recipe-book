@@ -1,9 +1,9 @@
-<app-header></app-header>
+<app-header (showRecipesEvent)="showOnlyRecipes()" (showShoppingListEvent)="showOnlyShoppingList()"></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-recipes></app-recipes>
-      <app-shopping-list></app-shopping-list>
+      <app-recipes *ngIf="recipesVisible == true"></app-recipes>
+      <app-shopping-list *ngIf="shoppingListVisible == true"></app-shopping-list>
     </div>
   </div>
 </div>
