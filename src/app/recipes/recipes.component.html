@@ -1,11 +1,13 @@
 <div class="row">
     <div class="col-md-5">
-        <app-recipe-list
-        (recipeWasSelected)="selectedRecipe = $event"></app-recipe-list>
+        <app-recipe-list></app-recipe-list>
     </div>
     <div class="col-md-7">
+        <!-- If selectedRecipe is set in recipes.component.ts, show it here. -->
         <app-recipe-detail *ngIf="selectedRecipe; else infoText"
         [recipe]="selectedRecipe"></app-recipe-detail>
+
+        <!-- If not, so infotext -->
         <ng-template #infoText>
             <p>Please select a template.</p>
         </ng-template>
