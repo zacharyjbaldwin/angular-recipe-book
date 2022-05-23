@@ -1,4 +1,5 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
 import { Recipe } from './recipe.model';
 
@@ -9,7 +10,9 @@ export class RecipeService {
   // This is fired when a new recipe is selected.
   // Fired in recipe-item.component.ts
   // Subscribed to in recipes.component.ts
-  recipeSelected = new EventEmitter<Recipe>();
+  // recipeSelected = new Subject<Recipe>();
+
+  recipesChanged = new Subject<Recipe[]>();
 
   private recipes: Recipe[] = [
     new Recipe('Pizza', 'This is some good pizza!', 'https://www.budgetbytes.com/wp-content/uploads/2010/07/Classic-Homemade-Pizza-Dough-close.jpg', [
@@ -29,6 +32,20 @@ export class RecipeService {
     // slice() makes sure that the array is a copy and not a reference to the actual recipes array
     return this.recipes.slice();
     
+  }
+
+  getRecipe(index: number) {
+    return this.recipes[index];
+  }
+
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes);
+  }
+
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.recipes);
   }
 
   constructor() { }

@@ -9,11 +9,7 @@ import { RecipeService } from '../../recipe.service';
 })
 export class RecipeItemComponent implements OnInit {
   @Input() recipe: Recipe;
-
-  onSelected() {
-    // When a recipe is selected, emit an event with the recipe details
-    this.recipeService.recipeSelected.emit(this.recipe);
-  }
+  @Input() index: number;
 
   constructor(private recipeService: RecipeService) { }
 
