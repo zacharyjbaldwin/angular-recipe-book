@@ -7,11 +7,6 @@ import { Recipe } from './recipe.model';
   providedIn: 'root'
 })
 export class RecipeService {
-  // This is fired when a new recipe is selected.
-  // Fired in recipe-item.component.ts
-  // Subscribed to in recipes.component.ts
-  // recipeSelected = new Subject<Recipe>();
-
   recipesChanged = new Subject<Recipe[]>();
 
   private recipes: Recipe[] = [
@@ -25,6 +20,11 @@ export class RecipeService {
       new Ingredient('beef patty', 1),
       new Ingredient('cheese slice', 1),
       new Ingredient('pickles', 3)
+    ]),
+    new Recipe('Tequila Sunrise', 'A pretty cocktail', 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/fresh-home-made-tequila-sunrise-cocktails-royalty-free-image-1581697157.jpg', [
+      new Ingredient('tequila', 1),
+      new Ingredient('orange juice', 1),
+      new Ingredient('grenadine', 1)
     ])
   ];
 
@@ -45,6 +45,11 @@ export class RecipeService {
 
   updateRecipe(index: number, newRecipe: Recipe) {
     this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.recipes);
+  }
+
+  deleteRecipe(index: number) {
+    this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes);
   }
 
